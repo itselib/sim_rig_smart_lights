@@ -1,0 +1,21 @@
+alias: Sim throttle off
+description: ""
+triggers:
+  - trigger: numeric_state
+    entity_id:
+      - sensor.simhub_throttle
+    below: 3
+actions:
+  - delay:
+      seconds: 0.13
+  - sequence:
+      - target:
+          device_id: #your device id goes here
+        data:
+          rgb_color:
+            - 0
+            - 0
+            - 255
+          brightness_pct: 8
+        action: light.turn_on
+mode: queued
