@@ -1,0 +1,16 @@
+mqtt:
+  sensor:
+   - name: "SimHub_Gear"
+     state_topic: "simhub"
+     value_template: '{{ value_json["carState"].Gear }}'
+     unit_of_measurement: "Gear"
+
+   - name: "SimHub_Brake"
+     state_topic: "simhub"
+     value_template: '{{ value_json["carState"].Brake }}'
+     unit_of_measurement: "%"
+
+   - name: "SimHub_Throttle"
+     state_topic: "simhub"
+     value_template: '{{ value_json["carState"].Throttle }}'
+     unit_of_measurement: "%"
