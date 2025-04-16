@@ -1,0 +1,39 @@
+alias: Sim throttle on
+description: ""
+triggers:
+  - entity_id: sensor.simhub_throttle
+    trigger: state
+conditions: []
+actions:
+  - delay:
+      seconds: 0.1
+  - choose:
+      - conditions:
+          - condition: template
+            value_template: "{{ trigger.to_state.state | int(0) > 2 }}"
+        sequence:
+          - target:
+              device_id: 1bf072be85ea0fc1efcdc42a758d0b1c
+            data:
+              rgb_color: >
+                {% set gear = states('sensor.simhub_gear') %} {% if gear == '1'
+                %}
+                  [0, 100, 5]  
+                {% elif gear == '2' %}
+                  [0, 130, 6]  
+                {% elif gear == '3' %}
+                  [0, 160, 6]  
+                {% elif gear == '4' %}
+                  [0, 190, 7]  
+                {% elif gear == '5' %}
+                  [0, 220, 7]  
+                {% elif gear == '6' %}
+                  [0, 255, 8]  
+                {% else %}
+                  [0, 100, 5]  # Default to White if gear is unknown
+                {% endif %}
+              brightness_pct: |
+                {% set gear = states('sensor.simhub_gear') | int(0) %}
+                {{ ((trigger.to_state.state | int(0)) * 0.25) + 1 + (gear *5) }}
+            action: light.turn_on
+mode: single
