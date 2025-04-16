@@ -1,0 +1,23 @@
+alias: Sim braking off
+description: ""
+triggers:
+  - trigger: numeric_state
+    entity_id:
+      - sensor.simhub_brake
+    below: 3
+conditions:
+  - condition: numeric_state
+    entity_id: sensor.simhub_throttle
+    below: 2
+actions:
+  - sequence:
+      - target:
+          device_id: #your device id goes here
+        data:
+          rgb_color:
+            - 0
+            - 0
+            - 255
+          brightness_pct: 8
+        action: light.turn_on
+mode: queued
