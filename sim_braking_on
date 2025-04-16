@@ -1,0 +1,38 @@
+alias: Sim braking on
+description: ""
+triggers:
+  - entity_id: sensor.simhub_brake
+    trigger: state
+actions:
+  - choose:
+      - conditions:
+          - condition: template
+            value_template: "{{ trigger.to_state.state | int(0) > 2 }}"
+        sequence:
+          - target:
+              device_id: #your light device id goes here
+            data:
+              rgb_color:
+                - 255
+                - 0
+                - 0
+              brightness_pct: "{{ trigger.to_state.state | int(0) }}"
+            action: light.turn_on
+      - conditions:
+          - condition: template
+            value_template: "{{ trigger.to_state.state | int(0) <= 2 }}"
+        sequence:
+          - target:
+              device_id: #your light device id goes here
+            data:
+              rgb_color:
+                - 0
+                - 0
+                - 255
+            action: light.turn_on
+    default:
+      - target:
+          device_id: #your light device id goes here
+        action: light.turn_off
+        data: {}
+mode: single
