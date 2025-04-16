@@ -13,7 +13,7 @@ actions:
             value_template: "{{ trigger.to_state.state | int(0) > 2 }}"
         sequence:
           - target:
-              device_id: 1bf072be85ea0fc1efcdc42a758d0b1c
+              device_id: #your light device id goes here 
             data:
               rgb_color: >
                 {% set gear = states('sensor.simhub_gear') %} {% if gear == '1'
