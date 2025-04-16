@@ -9,7 +9,7 @@ requires:
 * home assistant
 * smart lights
 
-1. Install and configure the mqtt plugin on simhub. 
+1. Install and configure the mqtt plugin on simhub. Set "simhub" as the mqtt topic. 
 2. Install the mosquitto mqtt add-on in home assistant
 3. Create sensors for your brake, throttle, and shifter by adding the code in my "sensors" file to the configuration.yaml file in your home assistant installation
 4. Create 4 automations in home assistant by copying and pasting the yaml code in my braking and throttle files
